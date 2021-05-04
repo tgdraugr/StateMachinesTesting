@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+  statemachines.mssql:
+    image: mcr.microsoft.com/mssql/server:2019-CU4-ubuntu-16.04
+    container_name: statemachines.mssql
+    user: root
+    restart: always
+    ports:
+    - 1433:1433
+    environment:
+      ACCEPT_EULA: Y
+      SA_PASSWORD: p@ssw0rd
+    command: bash -c "/opt/mssql/bin/sqlservr"
+
+  statemachines.mysql:
+    image: mysql
+    container_name: statemachines.mysql
+    ports:
+    - 3306:3306
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: p@ssw0rd
+
+  statemachines.postgresql:
+    image: postgres
+    container_name: statemachines.postgresql
+    ports:
+    - 5432:5432
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: p@ssw0rd
+
+  adminer:
+    image: adminer
+    container_name: statemachines.adminer
+    restart: always
+    ports:
+      - 8080:8080
